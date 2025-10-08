@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ふえる喜び！シミュレーター</title>
+    <link rel="stylesheet" href="style_v2.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="site-header">
+        <h1>ふえる喜び！シミュレーター</h1>
+        <div class="header-buttons">
+            <button id="btn-settings" class="settings-btn" title="設定">⚙️</button>
+        </div>
+    </header>
+
+    <div id="home-page-screen" class="screen">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>PetFi - ペットと歩む、<br>豊かな未来</h1>
+                <p>愛する家族との生活コストを可視化し、賢い資産形成で安心を。</p>
+                <button id="btn-start-simulation" class="cta-button">シミュレーションを開始する</button>
+                <button id="reset-all-simulation-btn" class="cta-button" style="margin-top: 10px;">オールクリア</button>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2>PetFiでできること</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <img src="dog_image/calc1.png" alt="生涯コスト計算アイコン" class="feature-icon">
+                    <h3>ライフコスト計算</h3>
+                    <p>愛犬の生涯にかかる費用を詳細にシミュレーション。賢い予算計画をサポートします。</p>
+                    <button class="feature-button" data-target-screen="lifetime-cost-screen">詳しく見る</button>
+                </div>
+                <div class="feature-card">
+                    <img src="dog_image/calc2.png" alt="PetFire計算アイコン" class="feature-icon">
+                    <h3>PetFi計算</h3>
+                    <p>ペットとの生活に必要な資金を、資産運用でどのように準備するかを計算します。</p>
+                    <button class="feature-button" data-target-screen="petfi-screen">詳しく見る</button>
+                </div>
+                <div class="feature-card">
+                    <img src="dog_image/piggy-bank.png" alt="目標資金準備アイコン" class="feature-icon">
+                    <h3>目標資金準備シミュレーター</h3>
+                    <p>目標金額を達成するための積立額をシミュレーションします。</p>
+                    <button class="feature-button" data-target-screen="savings-simulator-screen">詳しく見る</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="selection-screen" class="screen hidden">
+        <h2>はじめに、わんちゃんのサイズを選んでください</h2>
+        <div class="size-selection-buttons">
+            <button id="btn-size-small">小型犬</button>
+            <button id="btn-size-medium">中型犬</button>
+            <button id="btn-size-large">大型犬</button>
+        </div>
+        
+        <div id="breed-selection-area"></div>
+        <div class="navigation-buttons">
+            <button id="btn-back-to-home-from-selection" class="back-button">TOPページに戻る</button>
+        </div>
+    </div>
+
+    <div id="plan-selection-screen" class="screen hidden">
+        <h2>次に、資産運用のプランを選んでください</h2>
+        <div class="plan-cards-container">
+            <div class="plan-card">
+                <h3>こつこつプラン</h3>
+                <p>安定的な運用を目指すプランです。</p>
+                <div class="plan-input-group">
+                    <label>一括投資(万円): <input type="text" id="kotsu-initial-investment" value="100"></label>
+                    <label>積立投資(万円/月): <input type="text" id="kotsu-monthly-investment" value="0"></label>
+                </div>
+                <button id="btn-plan-kotsu" class="cta-button">このプランで始める</button>
+            </div>
+            <div class="plan-card">
+                <h3>わくわくプラン</h3>
+                <p>積極的な運用で高いリターンを目指すプランです。</p>
+                <div class="plan-input-group">
+                    <label>一括投資(万円): <input type="text" id="waku-initial-investment" value="100"></label>
+                    <label>積立投資(万円/月): <input type="text" id="waku-monthly-investment" value="0"></label>
+                </div>
+                <button id="btn-plan-waku" class="cta-button">このプランで始める</button>
+            </div>
+        </div>
+        <button id="btn-back-to-start" class="back-button">犬のサイズ選択に戻る</button>
+    </div>
+
+    <div id="main-screen" class="screen hidden">
+        <div class="main-content">
+            <div class="simulator-column">
+                <div class="input-group">
+                    <!-- Modified: Initial Dogs Input to custom-input-group style -->
+                    <div class="custom-input-group">
+                        <span class="input-label-text">当初頭数</span>
+                        <input type="number" id="initialDogs" value="1" min="1">
+                        <span class="input-unit">頭</span>
+                    </div>
+                    <!-- Age of First Dog Input (already in custom-input-group) -->
+                    <div class="custom-input-group">
+                        <span class="input-label-text">最初の犬の年齢</span>
+                        <input type="number" id="initialDogAge" value="0" min="0">
+                        <span class="input-unit">歳</span>
+                    </div>
+                </div>
+                <div id="selected-dog-image-container" class="icon-preview-container">
+                    <div class="preview-image-wrapper" id="dog-image-wrapper"></div>
+                    <div class="preview-result-wrapper">
+                        <h4 id="dog-breed-display">犬種: --</h4>
+                        <h3 id="dog-output">-- 頭</h3>
+                    </div>
+                </div>
+                <div id="dog-visualization-area" class="visualization-area"></div>
+            </div>
+            <div class="simulator-column">
+                <div class="input-group" style="justify-content: space-around;">
+                    <div class="custom-input-group">
+                        <span class="input-label-text">初期投資</span>
+                        <input type="text" id="initialInvestment" value="100">
+                        <span class="input-unit">万円</span>
+                    </div>
+                    <div class="custom-input-group">
+                        <span class="input-label-text">毎月積立</span>
+                        <input type="text" id="monthlyInvestment" value="0">
+                        <span class="input-unit">万円</span>
+                    </div>
+                    <input type="hidden" id="annualRate" value="5">
+                </div>
+                <div id="asset-icon-container" class="icon-preview-container">
+                    <div class="preview-image-wrapper">
+                        <img src="dog_image/宝箱.png" alt="宝箱" class="asset-icon-image">
+                    </div>
+                    <div class="preview-result-wrapper">
+                        <h4 id="plan-display">プラン: --</h4>
+                        <h3>最終結果:</h3>
+                        <h3 id="asset-output">-- 万円</h3>
+                    </div>
+                </div>
+                <div id="asset-chart-container" class="visualization-area"></div>
+            </div>
+        </div>
+        <div id="bottom-controls">
+            <label>シミュレーション年数: <input type="number" id="years" value="1" min="1"></label>
+            <button id="btn-calculate">計算する</button>
+        </div>
+        <div class="navigation-buttons">
+            <button id="reset-main-screen-inputs-btn" class="cta-button" style="padding: 12px 25px; font-size: 16px;">入力内容をリセット</button>
+            <button id="btn-back-to-plan" class="back-button">プラン選択に戻る</button>
+            <button id="btn-goto-lifetime-cost" class="nav-button">犬のライフコスト</button>
+        </div>
+    </div>
+
+    <div id="settings-screen" class="screen hidden">
+        <div class="container">
+            <h2>設定</h2>
+            <p>シミュレーションで使用する数値を編集できます。</p>
+            <form id="settings-form">
+                <div class="settings-group">
+                    <h3>資産運用プラン利回り</h3>
+                    <div class="input-row"><label>こつこつプラン運用利回り(%)</label><input type="number" id="settings-kotsu-yield" step="0.1"></div>
+                    <div class="input-row"><label>わくわくプラン運用利回り(%)</label><input type="number" id="settings-waku-yield" step="0.1"></div>
+                </div>
+                <div class="settings-group">
+                    <h3>小型犬</h3>
+                    <div class="input-row"><label>平均寿命(年)</label><input type="number" data-size="small" data-key="lifespan"></div>
+                    <div class="input-row"><label>購入・譲渡費用(万円)</label><input type="number" data-size="small" data-key="purchaseCost"></div>
+                    <div class="input-row"><label>餌・おやつ代(年間/万円)</label><input type="number" data-size="small" data-key="foodCost"></div>
+                    <div class="input-row"><label>医療費(年間/万円)</label><input type="number" data-size="small" data-key="medicalCost"></div>
+                    <div class="input-row"><label>トリミング代(年間/万円)</label><input type="number" data-size="small" data-key="groomingCost"></div>
+                    <div class="input-row"><label>葬儀費用(万円)</label><input type="number" data-size="small" data-key="funeralCost"></div>
+                    <div class="input-row"><label>子犬による収入(年間/万円)</label><input type="number" data-size="small" data-key="puppyIncome"></div>
+                </div>
+                <div class="settings-group">
+                    <h3>中型犬</h3>
+                    <div class="input-row"><label>平均寿命(年)</label><input type="number" data-size="medium" data-key="lifespan"></div>
+                    <div class="input-row"><label>購入・譲渡費用(万円)</label><input type="number" data-size="medium" data-key="purchaseCost"></div>
+                    <div class="input-row"><label>餌・おやつ代(年間/万円)</label><input type="number" data-size="medium" data-key="foodCost"></div>
+                    <div class="input-row"><label>医療費(年間/万円)</label><input type="number" data-size="medium" data-key="medicalCost"></div>
+                    <div class="input-row"><label>トリミング代(年間/万円)</label><input type="number" data-size="medium" data-key="groomingCost"></div>
+                    <div class="input-row"><label>葬儀費用(万円)</label><input type="number" data-size="medium" data-key="funeralCost"></div>
+                    <div class="input-row"><label>子犬による収入(年間/万円)</label><input type="number" data-size="medium" data-key="puppyIncome"></div>
+                </div>
+                <div class="settings-group">
+                    <h3>大型犬</h3>
+                    <div class="input-row"><label>平均寿命(年)</label><input type="number" data-size="large" data-key="lifespan"></div>
+                    <div class="input-row"><label>購入・譲渡費用(万円)</label><input type="number" data-size="large" data-key="purchaseCost"></div>
+                    <div class="input-row"><label>餌・おやつ代(年間/万円)</label><input type="number" data-size="large" data-key="foodCost"></div>
+                    <div class="input-row"><label>医療費(年間/万円)</label><input type="number" data-size="large" data-key="medicalCost"></div>
+                    <div class="input-row"><label>トリミング代(年間/万円)</label><input type="number" data-size="large" data-key="groomingCost"></div>
+                    <div class="input-row"><label>葬儀費用(万円)</label><input type="number" data-size="large" data-key="funeralCost"></div>
+                    <div class="input-row"><label>子犬による収入(年間/万円)</label><input type="number" data-size="large" data-key="puppyIncome"></div>
+                </div>
+                <div class="settings-group">
+                    <h3>繁殖設定</h3>
+                    <div class="input-row">
+                        <label>繁殖成功率(%)</label>
+                        <input type="number" id="settings-breeding-rate" step="1" min="0" max="100">
+                    </div>
+                    <div class="input-row">
+                        <label>去勢/避妊率(%)</label>
+                        <input type="number" id="settings-neuter-rate" step="1" min="0" max="100">
+                    </div>
+                </div>
+                <div class="settings-group" id="settings-asset-group">
+                    <h3>資産運用</h3>
+                    <div class="input-row"><label>デフォルトの年間運用利回り(%)</label><input type="number" id="settings-default-yield" step="0.1"></div>
+                </div>
+                <div class="settings-group">
+                    <h3>サウンド設定</h3>
+                    <div class="input-row">
+                        <label>BGM音量(%)</label>
+                        <input type="number" id="settings-bgm-volume" step="1" min="0" max="100">
+                    </div>
+                </div>
+            </form>
+            <div class="settings-illustration-container">
+                <img src="dog_image/gear.png" alt="設定アイコン" class="settings-illustration">
+            </div>
+            <div class="button-group">
+                <button id="btn-save-settings" class="btn">設定を保存</button>
+                <button id="btn-reset-settings" class="btn btn-secondary">リセット</button>
+                <button id="btn-back-to-main-from-settings" class="btn btn-secondary">戻る</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lifetime-cost-screen" class="screen hidden">
+        <div class="main-content">
+            <!-- 左側: ノーマルプラン -->
+            <div class="simulator-column">
+                <h2>ノーマルプラン</h2>
+                <div class="settings-group">
+                    <h3>ライフコスト計算</h3>
+                    <div class="lcs-control-block">
+                        <div class="control-group" id="lcs-size-group">
+                            <label>犬のサイズ:</label>
+                            <div class="btn-group" id="lcs-size-btns">
+                                <button class="fire-btn size-btn active" data-size="small">小型犬</button>
+                                <button class="fire-btn size-btn" data-size="medium">中型犬</button>
+                                <button class="fire-btn size-btn" data-size="large">大型犬</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lcs-control-block">
+                        <div class="control-group slider-group">
+                            <label for="lcs-count-slider">飼育頭数: <span id="lcs-count-value">1</span>頭</label>
+                            <input type="range" id="lcs-count-slider" min="1" max="10" value="1" step="1">
+                        </div>
+                    </div>
+                    <div class="lcs-control-block">
+                        <button id="lcs-calculate-btn" class="nav-button">ノーマルプランで計算</button>
+                    </div>
+                </div>
+                <div class="lcs-result result-box final-total">
+                    <h4>ライフコスト合計 (ノーマル):</h4>
+                    <div id="lcs-normal-cost-amount">---</div>
+                    <div class="lcs-plan-selector">
+                        <input type="radio" id="lcs-result-plan-normal" name="lcs-result-plan" value="normal" checked>
+                        <label for="lcs-result-plan-normal">このプランを選択</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右側: ラグジュアリープラン -->
+            <div class="simulator-column">
+                <h2>ラグジュアリープラン</h2>
+                <div class="settings-group">
+                    <h3>追加旅行費用</h3>
+                    <div class="lcs-control-block">
+                        <div class="control-group">
+                            <label>旅行の種類:</label>
+                            <div class="btn-group" id="lcs-travel-type-btns">
+                                <button class="fire-btn travel-type-btn active" data-travel-type="domestic">国内</button>
+                                <button class="fire-btn travel-type-btn" data-travel-type="overseas">海外</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lcs-control-block">
+                        <div class="input-row-group">
+                            <div class="input-row"><label>何年おきに旅行？</label><input type="number" id="lcs-travel-frequency" value="2"></div>
+                            <div class="input-row"><label>旅行の期間（泊）</label><input type="number" id="lcs-travel-duration" value="1"></div>
+                        </div>
+                        <div class="input-row-group">
+                            <div class="input-row"><label>人数</label><input type="number" id="lcs-travel-people" value="1"></div>
+                            <div class="input-row"><label>犬の数</label><input type="number" id="lcs-travel-dogs" value="1"></div>
+                        </div>
+                    </div>
+                    <div class="lcs-control-block">
+                        <button id="lcs-add-luxury-btn" class="nav-button">旅行費用を加算</button>
+                    </div>
+                </div>
+                 <div class="lcs-result result-box final-total">
+                    <h4>ライフプランコスト合計（ラグジュアリー）:</h4>
+                    <div id="lcs-total-cost-amount">---</div> <!-- ここに「〇〇万円（旅行費用〇〇万円）」の形式で表示します -->
+                    <div class="lcs-plan-selector">
+                        <input type="radio" id="lcs-result-plan-luxury" name="lcs-result-plan" value="luxury">
+                        <label for="lcs-result-plan-luxury">このプランを選択</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="navigation-buttons">
+            <button id="reset-lifecost-screen-inputs-btn" class="cta-button" style="padding: 12px 25px; font-size: 16px;">入力内容をリセット</button>
+            <button id="btn-back-to-main-from-lcs" class="back-button">TOPページに戻る</button>
+            <button id="btn-goto-sss-from-lcs" class="nav-button">資金の準備</button>
+            <button id="btn-goto-petfi-from-lcs" class="nav-button">PetFi計算</button>
+        </div>
+    </div>
+
+    <div id="petfi-screen" class="screen hidden">
+        <div class="main-content" style="justify-content: center;">
+            <div class="simulator-column">
+                <h2>PetFi計算</h2>
+                <div class="settings-group">
+                    <div class="custom-input-group">
+                        <label class="input-label-text">ライフコスト合計金額</label>
+                        <input type="text" id="petfi-total-life-cost-input">
+                        <span class="input-unit">万円</span>
+                    </div>
+                    <div class="custom-input-group">
+                        <label class="input-label-text">月間維持費用</label>
+                        <input type="text" id="petfi-monthly-cost-input" readonly>
+                        <span class="input-unit">円</span>
+                    </div>
+                    <!-- NEW: Dog Size Selection for PetFi -->
+                    <div class="control-group" id="petfi-dog-size-selection" style="margin-top: 20px;">
+                        <label>犬のサイズ:</label>
+                        <div class="btn-group">
+                            <button class="fire-btn size-btn active" data-size="small" id="petfi-size-small">小型犬</button>
+                            <button class="fire-btn size-btn" data-size="medium" id="petfi-size-medium">中型犬</button>
+                            <button class="fire-btn size-btn" data-size="large" id="petfi-size-large">大型犬</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group slider-group">
+                    <label for="petfi-yield-slider">年間運用利回り: <span id="petfi-yield-value">4.0</span>%</label>
+                    <input type="range" id="petfi-yield-slider" min="0.5" max="10" value="4" step="0.1">
+                </div>
+                <button id="petfi-calculate-btn" class="cta-button">計算する</button>
+                <div id="petfi-result-container" class="fire-result result-box hidden">
+                      <h4>必要な初期投資額:</h4>
+                      <div id="petfi-result-amount">---</div>
+                </div>
+                <button id="btn-goto-sss-from-petfi" class="nav-button">この金額を準備するには？</button>
+            </div>
+        </div>
+        
+        <div class="navigation-buttons">
+            <button id="reset-petfi-screen-inputs-btn" class="cta-button" style="padding: 12px 25px; font-size: 16px;">入力内容をリセット</button>
+            <button id="btn-back-to-lcs-from-petfi" class="back-button">ライフコスト計算に戻る</button>
+            <button id="btn-back-to-main-from-petfi" class="back-button">TOPページに戻る</button>
+        </div>
+    </div>
+
+    <div id="savings-simulator-screen" class="screen hidden">
+        <h2>目標資金準備シミュレーター</h2>
+        <div class="main-content">
+            <div class="simulator-column">
+                <div class="settings-group">
+                    <div class="input-row">
+                        <label>目標金額（万円）</label>
+                        <input type="text" id="sss-target-amount-input">
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <div class="input-row">
+                        <label>初期投資額（万円）</label>
+                        <input type="number" id="sss-initial-investment" value="0">
+                    </div>
+                    <div class="input-row">
+                        <label>準備期間（年）</label>
+                        <input type="number" id="sss-years" value="10">
+                    </div>
+                    <div class="control-group slider-group">
+                        <label for="sss-yield-slider">想定利回り: <span id="sss-yield-value">3.0</span>%</label>
+                        <input type="range" id="sss-yield-slider" min="0.5" max="10" value="3" step="0.5">
+                    </div>
+                </div>
+                <button id="sss-calculate-btn" class="nav-button">計算する</button>
+            </div>
+            <div class="simulator-column">
+                <div class="fire-result result-box final-total">
+                    <h4>必要な毎月の積立額:</h4>
+                    <div id="sss-result-amount">---</div>
+                </div>
+            </div>
+        </div>
+        <div class="navigation-buttons">
+            <button id="reset-savings-screen-inputs-btn" class="cta-button" style="padding: 12px 25px; font-size: 16px;">入力内容をリセット</button>
+            <button id="btn-back-to-lcs-from-sss" class="back-button">ライフコスト計算に戻る</button>
+            <button id="btn-back-to-petfi-from-sss" class="back-button">PetFi計算に戻る</button>
+            <button id="btn-back-to-home-from-sss" class="back-button">TOPページに戻る</button>
+        </div>
+    </div>
+
+    <div id="petfi-awareness-modal" class="hidden overlay">
+        <div class="modal-content">
+            <h2>新しい選択肢：PetFiという考え方</h2>
+            <p>ライフコストとして計算された費用を、普通預金や貯蓄だけで準備した場合、使うたびにその資産は減っていきます。</p>
+            <p><strong>本当に、それだけで良いのでしょうか？</strong></p>
+            <p>ここでご紹介したいのが、元本の運用益だけでペットのライフコストをまかなう<strong>「PetFi（ペットファイ）」</strong>という考え方です。</p>
+            <p>PetFiを達成すれば、元本を減らすことなく、ペットとのお金の心配から解放される未来が手に入ります。</p>
+            <p>あなたの場合、どれくらいの元本があればPetFiを達成できるのか、計算してみませんか？</p>
+            <button id="btn-proceed-to-petfi" class="cta-button">PetFi計算へ進む</button>
+            <button id="btn-close-petfi-awareness-modal" class="back-button">戻る</button>
+        </div>
+    </div>
+
+    <div id="final-message-overlay" class="hidden">
+        <div id="final-message-box">
+            時間を味方につける『ふえる力』、<br>
+            あなたの未来にも活かしませんか？
+        </div>
+    </div>
+
+    <audio id="woof-sound" src="sounds/woof.wav" preload="auto"></audio>
+    <audio id="bgm-sound" src="sounds/088_BPM130.mp3" loop></audio>
+    <audio id="lcs-bgm" src="sounds/284_BPM120.mp3" loop preload="auto"></audio>
+    <audio id="sss-bgm" src="sounds/415_BPM120.mp3" loop preload="auto"></audio>
+    <audio id="petfi-bgm" src="sounds/296_BPM85.mp3" loop preload="auto"></audio>
+    <audio id="woof2-sound" src="sounds/woof2.wav" preload="auto"></audio>
+    <audio id="woof1-sound" src="sounds/woof1.wav" preload="auto"></audio>
+    <script src="script.js"></script>
+    <footer class="site-footer">
+        <p>&copy; 2025 PetFi Simulator. All rights reserved.</p>
+        <!-- 必要であればここにナビゲーションリンクを追加 -->
+    </footer>
+    <p style="font-size: 0.8em; color: #777; text-align: center; margin-top: 20px;">
+        *PetFiとは、ペットにかかるお金の問題から自由に解き放たれる状態をさします。具体的には資産によるインカムゲインでペットにかかる費用をすべて賄えるようになる資産規模を指します。
+    </p>
+</body>
+</html>

@@ -1,0 +1,1539 @@
+/* =============================================================== */
+/* ふえる喜び！シミュレーター                                      */
+/* style.css (完全修正版)                                          */
+/* =============================================================== */
+
+/* --- 全体の基本スタイル --- */
+body {
+    font-family: 'M PLUS Rounded 1c', 'Helvetica Neue', 'Arial', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2 {
+    color: #2c3e50;
+    text-align: center;
+}
+
+.simulator-column h2 {
+    margin-top: 5px;  /* 上マージンを縮小 */
+    margin-bottom: 15px; /* 下マージンを調整 */
+}
+
+/* --- 各画面のコンテナ --- */
+.screen {
+    width: 100%;
+    max-width: 1200px;
+    margin: 10px 0; /* 上下マージンを縮小 */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- ボタンのスタイル --- */
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin: 0 5px;
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.back-button {
+    background-color: #7f8c8d;
+}
+.back-button:hover {
+    background-color: #6c7a7b;
+}
+
+.navigation-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.nav-button {
+    background-color: #27ae60; /* 緑系の色 */
+}
+
+.nav-button:hover {
+    background-color: #229954;
+}
+
+/* --- 犬のサイズ選択画面 --- */
+.size-selection-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.size-selection-buttons button {
+    padding: 15px 30px; /* 上下左右のパディングを増やす */
+    font-size: 1.2em; /* フォントサイズを大きくする */
+    min-width: 150px; /* ボタンの最小幅を設定して揃える */
+}
+
+/* ★★★★★ ここからが修正箇所です ★★★★★ */
+/* --- プラン選択画面のスタイル --- */
+#plan-selection-screen {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+/* ★★★★★ ここまでが修正箇所です ★★★★★ */
+
+
+#breed-selection-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* タイル間の隙間 */
+}
+
+/* --- 犬種選択タイルのスタイル --- */
+.breed-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #fff;
+    width: 150px;
+    height: 180px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.breed-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.breed-image {
+    width: 100%;
+    height: 120px;
+    object-fit: contain; /* 画像の比率を保ったまま収める */
+}
+
+.breed-caption {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#btn-back-to-start {
+    margin-top: 30px; /* 追加 */
+}
+.site-header {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px; /* 左右に少しパディング */
+    box-sizing: border-box;
+    margin-bottom: 5px; /* 下の画面とのマージンを詰める */
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+/* --- シミュレーター画面のスタイル --- */
+#main-screen h2 {
+    color: #82c9b1; /* メインカラー */
+    font-size: 2em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+#btn-calculate {
+    font-size: 1.4em; /* 少し大きく */
+    padding: 10px 40px; /* 少し大きく */
+    background-color: #e67e50; /* アクセントカラー */
+    border-radius: 30px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+#btn-calculate:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+    background-color: #f2a67e; /* ホバー時もアクセントカラー */
+}
+
+.main-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* 追加 */
+    justify-content: center; /* 追加: 折り返した際に中央寄せにする */
+}
+.simulator-column {
+    flex: 1 1 45%; /* flex-grow, flex-shrink, flex-basis */
+    min-width: 300px; /* 最小幅を設定 */
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    background-color: #e8f4f8;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 子要素間の隙間を追加 */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* 強制的に1行に */
+    justify-content: center; /* 中央寄せ */
+}
+.input-group label {
+    flex: 1; /* 追加 */
+    font-weight: bold;
+    color: #333333;
+    font-size: 1.1em;
+}
+.input-group input {
+    flex: 1; /* 変更 */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: auto; /* 幅を自動調整 */
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.input-group input:focus {
+    border-color: #82c9b1; /* メインカラー */
+    box-shadow: 0 0 0 3px rgba(130, 201, 177, 0.3);
+    outline: none;
+}
+
+/* --- イラストと結果表示エリア --- */
+.icon-preview-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.preview-image-wrapper {
+    flex: 0 0 150px; /* 横幅を広げる */
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8f4f8; /* 明るい背景色 */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.preview-result-wrapper {
+    flex: 1; /* 残りのスペースを埋める */
+    text-align: center;
+    padding-left: 20px;
+}
+
+.preview-result-wrapper h3 {
+    color: #e67e50; /* アクセントカラー */
+    margin: 0;
+    font-size: 2.5em; /* 結果の数字を大きく */
+    font-weight: bold;
+    line-height: 1.0;
+}
+
+.preview-result-wrapper h4 {
+    font-size: 1.0em;
+    font-weight: normal;
+    color: #555;
+    margin: 0 0 10px 0;
+}
+
+/* 資産運用側の結果表示の微調整 */
+#asset-icon-container .preview-result-wrapper h3:first-child {
+    font-size: 1.2em;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.selected-dog-image, .asset-icon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 15px; /* 画像の周囲に余白を追加 */
+    box-sizing: border-box;
+}
+
+/* --- アニメーション/グラフ表示エリアの共通スタイル --- */
+.visualization-area {
+    height: 220px; /* 高さを少し増やす */
+    width: 100%;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-content: flex-start;
+    margin-bottom: 0; /* 縦の余白を増やす */
+    background-color: #f9f9f9; /* 背景色を追加 */
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05); /* 軽い内側の影 */
+}
+
+/* --- 犬のアイコン表示エリア --- */
+#dog-visualization-area {
+    background-color: #ffffff;
+    padding: 15px;
+    align-content: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.dog-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin: 3px;
+    opacity: 0; /* アニメーションの初期状態 */
+}
+
+.dog-icon.fade-out {
+    opacity: 0;
+}
+
+.overload-image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overload-image {
+    max-height: 100%;
+    width: auto;
+}
+
+/* 犬アイコンがポップインするアニメーション */
+@keyframes dogIconFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-15deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+
+/* --- 資産チャートのスタイル --- */
+/* グラフ描画アニメーションの定義 */
+@keyframes drawLineLTR {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+#asset-chart-container {
+    overflow: hidden; /* アニメーションでグラフがはみ出さないように */
+    padding: 0; /* グラフはpaddingなしでぴったり表示 */
+    align-content: center;
+    justify-content: center;
+}
+.grid-line {
+    stroke: #e0e0e0;
+    stroke-dasharray: 2,2;
+}
+.axis-text {
+    font-size: 12px;
+    fill: #555;
+}
+.chart-path {
+    stroke: #82c9b1; /* メインカラー */
+    stroke-width: 4px; /* 太く */
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    /* アニメーションの初期状態（線の長さ分だけオフセットさせて見えなくする） */
+    stroke-dashoffset: var(--path-length);
+}
+.chart-path.animate {
+    /* keyframesで定義したアニメーションを適用 */
+    animation: drawLineLTR 3s ease-out forwards; /* 1.5s -> 3s */
+}
+
+.chart-area {
+    fill: url(#area-gradient);
+    /* 塗りつぶしがフェードインするアニメーション */
+    opacity: 0;
+    transition: opacity 1.4s ease-in 1s; /* 0.7s -> 1.4s, delay 1s */
+}
+.chart-area.animate {
+    opacity: 1;
+}
+
+
+
+
+/* --- PetFi Awareness Modal Styles --- */
+#petfi-awareness-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+#petfi-awareness-modal.visible {
+    opacity: 1;
+}
+#petfi-awareness-modal .modal-content {
+    background-color: #ffffff;
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease-out;
+}
+#petfi-awareness-modal.visible .modal-content {
+    transform: scale(1);
+}
+#petfi-awareness-modal h2 {
+    color: #82c9b1;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+#petfi-awareness-modal p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+#petfi-awareness-modal strong {
+    color: #e67e50;
+}
+#petfi-awareness-modal .cta-button,
+#petfi-awareness-modal .back-button {
+    margin: 10px;
+}
+
+/* --- 最後のメッセージのスタイル --- */
+#final-message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 1.5s;
+    z-index: 1000;
+}
+#final-message-overlay.visible {
+    opacity: 1;
+}
+#final-message-box {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding: 40px;
+    text-shadow: 0 0 15px black;
+}
+
+/* --- 統合版計算機 (Lifetime Cost & PetFi) --- */
+#lifetime-cost-screen {
+    background-color: #f5f5dc; /* サブカラー */
+    padding: 30px;
+}
+
+#lifetime-cost-screen h2 {
+    color: #82c9b1; /* メインカラー */
+    font-size: 2em;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.lcs-illustration-container {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.lcs-illustration {
+    max-width: 80%;
+    height: auto;
+    opacity: 0.7;
+}
+
+.petfire-illustration-container {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.petfire-illustration {
+    max-width: 60%; /* サイズを調整 */
+    height: auto;
+    opacity: 0.7;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+#lcs-size-group {
+    margin-bottom: 25px; /* この要素の下だけ少し余白を増やす */
+}
+
+.control-group label {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333333;
+}
+
+.btn-group {
+    display: inline-flex;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.fire-btn {
+    background-color: #fff;
+    color: #82c9b1; /* メインカラー */
+    border: 1px solid #82c9b1; /* メインカラー */
+    padding: 10px 20px;
+    margin: 0;
+    border-radius: 0;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.fire-btn:first-of-type {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.fire-btn:last-of-type {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.fire-btn + .fire-btn {
+    border-left-width: 0;
+}
+
+.fire-btn.active {
+    background-color: #82c9b1; /* メインカラー */
+    color: white;
+    border-color: #82c9b1; /* メインカラー */
+    transform: none; /* 通常のボタンホバーを無効化 */
+}
+
+.fire-btn:hover:not(.active) {
+    background-color: #e0e0e0; /* サブカラー */
+    color: #333333;
+}
+
+.slider-group {
+    flex-grow: 1;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.slider-group input[type="range"] {
+    width: 100%;
+    flex-grow: 1;
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 5px;
+    background: #e0e0e0;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+.slider-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #e67e50; /* アクセントカラー */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.slider-group input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #e67e50; /* アクセントカラー */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#lcs-calculate-btn {
+    display: block; /* ボタンをブロック要素にして幅を100%に */
+    width: 100%;
+    margin: 20px 0;
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: #e67e50; /* アクセントカラー */
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+
+#lcs-calculate-btn:hover {
+    background-color: #f2a67e; /* アクセントカラーの明るい方 */
+    transform: translateY(-2px);
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+
+.lcs-result.result-box.final-total {
+    margin-top: 20px; /* settings-groupとの間にマージン */
+    border: 2px solid #e67e50;
+    min-height: 120px; /* 縦幅を狭く調整 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 左寄せ */
+    justify-content: flex-start; /* 上寄せ */
+    text-align: left; /* テキストも左寄せ */
+    padding: 15px; /* result-boxのpaddingと合わせる */
+    background-color: #ffffff; /* result-boxの背景色と合わせる */
+    border-radius: 15px; /* result-boxの角丸と合わせる */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* result-boxの影と合わせる */
+}
+.lcs-result.result-box.final-total h4 {
+    width: 100%; /* h4が親要素の幅いっぱいに広がるように */
+    text-align: left; /* h4のテキストも左寄せ */
+    margin-bottom: 10px; /* 各項目の下マージン */
+}
+.lcs-result.result-box.final-total div {
+    width: 100%; /* divも親要素の幅いっぱいに広がるように */
+    text-align: left; /* divのテキストも左寄せ */
+    font-size: 1.5em; /* 結果の数字を少し大きく */
+    font-weight: bold;
+    color: #e67e50; /* アクセントカラー */
+}
+/* simulator-column内のsettings-groupとresult-boxの間のマージンを調整 */
+.simulator-column .settings-group + .lcs-result.result-box.final-total {
+    margin-top: 20px;
+}
+
+/* PetFi計算の初期投資額を特に目立たせる */
+#lcs-fire-result-amount {
+    font-size: 3em; /* さらに大きく */
+    color: #e67e50; /* アクセントカラー */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- 設定画面のスタイル --- */
+#settings-screen {
+    background-color: #f5f5dc; /* サブカラー */
+    padding: 30px;
+}
+
+#settings-screen h2 {
+    color: #82c9b1; /* メインカラー */
+    font-size: 2em;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.settings-illustration-container {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.settings-illustration {
+    max-width: 40%; /* サイズを調整 */
+    height: auto;
+    opacity: 0.7;
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 10px;
+    color: #7f8c8d;
+}
+.settings-btn:hover {
+    color: #34495e;
+    transform: none;
+}
+
+#settings-form fieldset {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+#settings-form legend {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 0 10px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.form-row:last-child {
+    border-bottom: none;
+}
+
+.form-row label {
+    flex-basis: 60%;
+}
+
+.form-row input {
+    flex-basis: 35%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: right;
+}
+
+.settings-actions {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.settings-actions button {
+    flex-grow: 1;
+    max-width: 200px;
+}
+
+.settings-group {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 40px; /* より明確な分離のためにマージンを増やす */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    display: flex; /* 追加 */
+    flex-direction: column; /* 追加 */
+}
+
+.settings-group h3 {
+    color: #82c9b1; /* メインカラー */
+    font-size: 1.6em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+/* settings-groupを可変にする */
+#lifetime-cost-screen .settings-group {
+    flex-grow: 1;
+}
+
+.input-row-group {
+    display: flex;
+    gap: 15px; /* グループ間の隙間 */
+    width: 100%;
+}
+
+.input-row-group .input-row {
+    flex: 1; /* 各input-rowが均等に幅を取る */
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.input-row-group .input-row label {
+    font-size: 1.0em; /* 少しフォントを小さく */
+}
+
+.input-row-group .input-row input[type="number"] {
+    width: 60px; /* 入力欄の幅を狭くする */
+}
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e9e9e9;
+}
+
+.input-row:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.input-row label {
+    font-size: 1.1em;
+    color: #555;
+    flex-grow: 1;
+}
+
+.input-row input[type="number"] {
+    width: 120px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    text-align: right;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-row input[type="number"]:focus {
+    border-color: #82c9b1; /* メインカラー */
+    box-shadow: 0 0 0 3px rgba(130, 201, 177, 0.3);
+    outline: none;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.button-group .btn {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.button-group .btn-secondary {
+    background-color: #7f8c8d;
+    color: white;
+}
+
+.button-group .btn-secondary:hover {
+    background-color: #6c7a7b;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 12px rgba(0,0,0,0.15);
+}
+
+.button-group .btn:not(.btn-secondary) {
+    background-color: #e67e50; /* アクセントカラー */
+    color: white;
+}
+
+.button-group .btn:not(.btn-secondary):hover {
+    background-color: #f2a67e; /* アクセントカラーの明るい方 */
+    transform: translateY(-2px);
+    box-shadow: 0 7px 12px rgba(0,0,0,0.15);
+}
+
+/* --- Home Page Styles --- */
+#home-page-screen {
+    padding: 0; /* 全体的なパディングをリセット */
+    background-color: #f5f5dc; /* サブカラー: 柔らかいベージュ */
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 30px 20px;
+    background-color: #82c9b1; /* メインカラー: 落ち着いたミントグリーン */
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom-left-radius: 50px; /* 下部の角を丸く */
+    border-bottom-right-radius: 50px;
+}
+
+.hero-content {
+    z-index: 1;
+    max-width: 800px;
+    margin-bottom: 40px;
+    background: rgba(0, 0, 0, 0.2); /* 半透明の黒背景 */
+    padding: 20px 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px); /* 背景を少しぼかす */
+}
+
+.hero-section h1 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    color: white; /* タイトル色を白に */
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5); /* 影を強化 */
+}
+
+.hero-section p {
+    font-size: 1.5em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.9);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4); /* 影を強化 */
+}
+
+.cta-button {
+    background-color: #e67e50; /* アクセントカラー: テラコッタ */
+    color: white;
+    padding: 18px 40px;
+    font-size: 1.4em;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    border: none; /* デフォルトのボタンボーダーを削除 */
+}
+
+.cta-button:hover {
+    background-color: #f2a67e; /* アクセントカラーの明るい方 */
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+}
+
+.hero-image-container {
+    width: 25%; /* 画像の幅を調整 */
+    max-width: 500px;
+    height: auto;
+    opacity: 1; /* 背景画像として少し透明に */
+    margin: 0 auto 0 auto; /* 上に20pxマージンを0に変更 */
+    position: relative; /* flexアイテムとして配置されるように */
+    background-color: #82c9b1; /* 背景色を追加 */
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Features Section */
+.features-section {
+    padding: 0 20px 60px 20px;
+    text-align: center;
+    background-color: #f5f5dc; /* サブカラー: 柔らかいベージュ */
+}
+
+.features-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: #333333; /* テキストカラー: ダークグレー */
+}
+
+.feature-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    padding: 30px;
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
+.feature-card h3 {
+    font-size: 1.8em;
+    color: #82c9b1; /* メインカラー */
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    font-size: 1.1em;
+    color: #555555;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1; /* テキストが伸びるように */
+}
+
+.feature-button {
+    background-color: #82c9b1; /* メインカラー */
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+    border: none; /* デフォルトのボタンボーダーを削除 */
+}
+
+.feature-button:hover {
+    background-color: #6bb39b; /* メインカラーの少し濃い色 */
+}
+
+/* Footer */
+.site-footer {
+    background-color: #e0e0e0; /* サブカラー: ライトグレー */
+    color: #333333; /* テキストカラー: ダークグレー */
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+    margin-top: 50px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-section h1 {
+        font-size: 2.8em;
+    }
+    .hero-section p {
+        font-size: 1.3em;
+    }
+    .hero-image-container {
+        width: 25%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 15px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+    .hero-section h1 {
+        font-size: 2.2em;
+    }
+    .hero-section p {
+        font-size: 1.1em;
+    }
+    .cta-button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+    }
+    .hero-image-container {
+        /* position: static; を削除 */
+        width: 25%; /* 80% から 25% に変更 */
+        margin-top: 30px;
+        opacity: 1;
+    }
+    .features-section {
+        padding: 40px 15px;
+    }
+    .features-section h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+    .feature-card {
+        min-width: unset;
+        width: 100%;
+        max-width: 400px; /* 中央寄せのために最大幅を設定 */
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section h1 {
+        font-size: 1.8em;
+    }
+    .hero-section p {
+        font-size: 1em;
+    }
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .feature-card {
+        padding: 20px;
+    }
+    .feature-card h3 {
+        font-size: 1.5em;
+    }
+    .feature-card p {
+        font-size: 0.9em;
+    }
+    .feature-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+/* 犬のサイズ選択画面のイラストスタイル */
+.selection-illustration-container {
+    text-align: center; /* イラストを中央寄せ */
+    margin-bottom: 20px; /* 下に余白 */
+}
+
+.selection-illustration {
+    width: 25%; /* サイズを25%に縮小 */
+    height: auto;
+    display: block; /* 中央寄せのためにブロック要素に */
+    margin: 0 auto; /* 中央寄せ */
+}
+/* --- Plan Selection Screen --- */
+.plan-cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.plan-card {
+    background-color: #e8f4f8;
+    border: 1px solid #d0e0e8;
+    border-radius: 15px;
+    padding: 25px;
+    width: 320px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.plan-card h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.8em;
+}
+
+.plan-card p {
+    margin: 0;
+    color: #555;
+    font-size: 1em;
+    flex-grow: 1;
+}
+
+.plan-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.plan-input-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.plan-input-group input {
+    width: 120px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: right;
+    font-size: 1em;
+}
+
+.plan-card .cta-button {
+    margin-top: auto; /* Pushes the button to the bottom */
+}
+#bottom-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #e8f4f8;
+    border-radius: 12px;
+}
+
+#bottom-controls label {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#bottom-controls input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100px;
+    font-size: 1em;
+}
+
+#bottom-controls #btn-calculate {
+    font-size: 1.2em;
+    padding: 10px 30px;
+}
+.custom-input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0;
+    background-color: white;
+}
+
+.custom-input-group .input-label-text {
+    padding: 10px;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    border-right: 1px solid #ccc;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.custom-input-group input {
+    border: none;
+    width: 80px; /* Adjust width as needed */
+    text-align: right;
+    flex: 1;
+}
+
+.custom-input-group input:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.custom-input-group .input-unit {
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* PetFi計算セクションのコンテナに上マージンを追加 */
+#petfi-section-container {
+    margin-top: 20px;
+}
+.final-total {
+    margin-top: auto !important; /* .settings-groupが伸びた分、一番下に配置されるように */
+    border: 2px solid #e67e50;
+}
+.final-total h4 {
+    color: #e67e50;
+    font-size: 1.2em;
+}
+
+/* 目標資金準備シミュレーター画面の右側カラムを中央揃えに */
+#savings-simulator-screen .simulator-column:last-child {
+    justify-content: center;
+}
+
+/* 結果表示を大きく、中央に */
+#savings-simulator-screen .final-total {
+    padding: 40px 20px; /* 内側余白を増やして箱を大きく */
+    margin-top: 30px !important; /* auto設定を上書き */
+}
+
+#sss-target-amount {
+    font-size: 2.0em;
+    font-weight: bold;
+}
+
+#sss-result-amount {
+    font-size: 4.5em; /* 結果のフォントを大幅に大きく */
+    font-weight: bold;
+    color: #e67e50;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- PetFi計算画面の専用スタイル --- */
+#petfi-screen .simulator-column {
+    max-width: 600px; /* カラムの最大幅を設定して間延びを防ぐ */
+    flex-basis: 100%; /* 中央寄せのためにflex-basisを調整 */
+}
+
+#petfi-screen .settings-group,
+#petfi-screen .control-group,
+#petfi-screen .result-box {
+    margin-top: 25px; /* 各ブロックの上下マージンを統一してゆとりを持たせる */
+    margin-bottom: 25px;
+}
+
+#petfi-screen .input-row {
+    justify-content: flex-start; /* ラベルと入力を左揃えに */
+    gap: 15px; /* ラベルと入力の間に隙間を作る */
+}
+
+#petfi-screen .input-row label {
+    flex-grow: 0; /* ラベルが不必要に伸びないように */
+}
+
+#petfi-screen .input-row input[type="number"] {
+    font-size: 1.5em; /* 入力欄の数字を大きく */
+    font-weight: bold;
+    color: #2c3e50;
+    max-width: 250px; /* 入力欄の幅を調整 */
+}
+
+#petfi-screen .result-box h4 {
+    font-size: 1.5em; /* 結果ラベルのフォントサイズ */
+}
+
+#petfi-screen #petfi-result-amount {
+    font-size: 4em; /* 結果の数字を大幅に大きく */
+    font-weight: bold;
+    color: #e67e50; /* アクセントカラー */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- ライフコスト計算画面のレイアウト調整 --- */
+
+/* 左右のコントロールブロックの高さと配置を調整 */
+.lcs-control-block {
+    min-height: 100px; /* 各ブロックの最小の高さを設定 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* ブロック内で垂直方向中央揃え */
+    margin-bottom: 15px;
+}
+
+/* settings-groupをflexにしてブロックを均等配置 */
+#lifetime-cost-screen .settings-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; /* 各ブロックを均等に配置 */
+    flex-grow: 1; /* 高さを親要素に合わせる */
+}
+
+/* 左右の計算ボタンのスタイルを統一 */
+#lcs-calculate-btn, #lcs-add-luxury-btn {
+    display: flex; /* flexboxを使う */
+    justify-content: center; /* 水平中央 */
+    align-items: center; /* 垂直中央 */
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: #e67e50;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    height: 60px; /* ボタンの高さを固定 */
+    margin: 0;
+    box-sizing: border-box; /* paddingを含めて高さを計算 */
+}
+
+#lcs-calculate-btn:hover, #lcs-add-luxury-btn:hover {
+    background-color: #f2a67e;
+    transform: translateY(-2px);
+}
+
+/* 計算結果のフォントサイズを大きく */
+#lcs-normal-cost-amount, #lcs-total-cost-amount {
+    font-size: 2.5em !important; /* フォントサイズを大きく */
+    font-weight: bold;
+    color: #e67e50;
+}
+
+/* --- 結果ボックス内プランセレクターのスタイル --- */
+.lcs-plan-selector {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lcs-plan-selector input[type="radio"] {
+    margin-right: 8px;
+}
+
+.lcs-plan-selector label {
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+}
+
+.lcs-result.result-box.final-total.selected {
+    border-width: 4px; /* 枠線を太く */
+    border-color: #27ae60; /* 緑系の色でハイライト */
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.2); /* 影を付ける */
+}
+
+/* --- レイアウト縦幅 再圧縮およびズレ修正 --- */
+
+/* 画面全体の上下パディングをさらに削減 */
+#lifetime-cost-screen {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* 分割画面のタイトル(h2)周りのスペースを削減 */
+#lifetime-cost-screen h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+/* settings-groupの高さを固定し、中の要素を均等配置することで左右のズレを防止 */
+#lifetime-cost-screen .settings-group {
+    height: 320px; /* 高さを固定して、この中で要素を配置 */
+    justify-content: space-between; /* 均等配置に戻してズレをなくす */
+    padding: 10px 20px; /* 内側の余白を調整 */
+    gap: 0; /* gapは不要 */
+    margin-bottom: 10px; /* 結果ボックスとの間隔 (15px -> 10px) */
+}
+
+/* 各入力ブロックから余分なスペースを削除 */
+.lcs-control-block {
+    min-height: unset;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* 結果ボックスの上のマージンを詰める */
+#lifetime-cost-screen .lcs-result.result-box.final-total {
+    margin-top: 0;
+}
+
+/* --- レイアウト再々圧縮調整 --- */
+
+/* 分割画面タイトルのアンダーバーを削除し、下のマージンをさらに削減 */
+#lifetime-cost-screen h2 {
+    border-bottom: none;
+    margin-bottom: 5px;
+    padding-bottom: 0; /* ボーダーがないのでパディングも不要 */
+}
+
+/* 入力ブロックと結果ブロックの間のスペースを半分以下に */
+#lifetime-cost-screen .settings-group {
+    margin-bottom: 5px; /* 10px -> 5px */
+}
+
+/* --- 目標資金準備シミュレーターのスタイル調整 --- */
+#sss-target-amount-input {
+    font-size: 1.5em; /* フォントサイズを大きく */
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px; /* 右側に余白を追加 */
+}
+
+/* PetFi計算画面の入力欄とボタンのスタイル調整 */
+#petfi-screen #petfi-total-life-cost-input,
+#petfi-screen #petfi-monthly-cost-input {
+    font-size: 1.5em; /* フォントを大きく */
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px; /* 右側に余白 */
+    width: 150px; /* 幅を調整 */
+}
+
+#petfi-screen .custom-input-group .input-label-text {
+    font-size: 1.1em; /* ラベルのフォントサイズ */
+}
+
+#petfi-calculate-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 1.2em;
+    background-color: #e67e50;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+
+#petfi-calculate-btn:hover {
+    background-color: #f2a67e;
+    transform: translateY(-2px);
+}
+
+#petfi-result-container {
+    margin-top: 20px;
+}
+
+/* =================================== */
+/* タブレット・スマホ表示用の追加スタイル */
+/* =================================== */
+@media (max-width: 768px) {
+    /* メインコンテンツの2カラムを縦並びに変更します */
+    .main-content {
+        flex-direction: column;
+    }
+
+    /* ヒーローセクションの文字サイズを調整します */
+    .hero-section h1 {
+        font-size: 2.2em;
+    }
+
+    /* 各機能カードが縦に並ぶように調整します */
+    .feature-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+}
